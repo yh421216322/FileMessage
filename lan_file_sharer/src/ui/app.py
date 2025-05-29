@@ -9,20 +9,25 @@ from tkinter import filedialog
 # Core imports - adjust path as necessary if running app.py directly for testing vs as part of package
 # Assuming standard package structure and running via main.py or python -m
 try:
-    from ..core import load_config, save_config, hash_pin
+    # Imports when running as part of the package (e.g., python -m src.main)
+    from ..core import load_config, save_config, hash_pin, FileClient
+    from ..core.network_discoverer import DiscoveryBroadcaster, DiscoveryListener, APP_ID, BROADCAST_PORT
 except ImportError:
-    # Fallback for running app.py directly, assuming core is a sibling directory to ui's parent
+    # Fallback for running app.py directly (e.g. for UI testing/development)
+    # This assumes 'core' is a sibling directory to 'ui's parent's 'src'
+    # or that src_path is added correctly.
     import sys
     import os
-    # Get the absolute path to the project's root directory (lan_file_sharer)
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-    # Get the absolute path to the src directory
     src_path = os.path.join(project_root, 'src')
     if src_path not in sys.path:
-        sys.path.insert(0, src_path)
-    from core import load_config, save_config, hash_pin
+        sys.path.insert(0, src_path) # Prepend src to allow 'from core import ...'
+    
+    # These imports might need adjustment if the fallback structure is different
+    # For instance, if core is directly a sibling of ui, then 'from ..core' might still work
+    # if the parent of ui is in sys.path. But for a flat src structure, this is more robust.
+    from core import load_config, save_config, hash_pin, FileClient
     from core.network_discoverer import DiscoveryBroadcaster, DiscoveryListener, APP_ID, BROADCAST_PORT
-    from core.file_client import FileClient
 
 import uuid
 import threading
