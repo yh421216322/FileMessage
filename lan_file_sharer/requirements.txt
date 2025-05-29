@@ -1,0 +1,7 @@
+# Add project dependencies here, e.g.:
+# flask
+# cryptography
+# qrcode[pil]
+requests
+customtkinter
+pyinstaller
