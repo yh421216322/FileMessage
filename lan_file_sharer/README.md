@@ -1,88 +1,88 @@
-# LAN File Sharer
+# LAN 文件共享器
 
-## 1. Application Overview
+## 1. 应用概述
 
-LAN File Sharer is a desktop application designed for easy file sharing between computers on the same local area network (LAN). It allows users to share files from a designated folder, protected by a 4-digit PIN. Other users on the network running the application with the same PIN can discover each other, browse shared files, and download them.
+LAN 文件共享器是一款桌面应用程序，旨在简化同一局域网 (LAN) 内计算机之间的文件共享。它允许用户从指定文件夹共享文件，并使用4位数 PIN 码进行保护。网络上运行该应用程序且使用相同 PIN 码的其他用户可以发现彼此、浏览共享文件并下载它们。
 
-**Core Features:**
+**核心功能:**
 
-*   **Shared Folder:** Designate a specific folder on your computer to share its contents.
-*   **PIN Protection:** Secure access to your shared files using a 4-digit PIN. Only peers with the matching PIN can interact.
-*   **Peer Discovery:** Automatically discover other users on the LAN running the application with the same PIN.
-*   **Remote File Listing:** Browse the contents of a selected peer's shared folder.
-*   **File Downloading:** Download files from discovered peers directly to your computer.
+*   **共享文件夹:** 指定您计算机上的特定文件夹以共享其内容。
+*   **PIN 码保护:** 使用4位数 PIN 码保护对您共享文件的访问。只有拥有匹配 PIN 码的对等方才能交互。
+*   **对等方发现:** 自动发现在同一局域网上运行该应用程序且使用相同 PIN 码的其他用户。
+*   **远程文件列表:** 浏览从对等方列表中选定的对等方共享文件夹的内容。
+*   **文件下载:** 将文件从发现的对等方直接下载到您的计算机。
 
-## 2. Requirements
+## 2. 系统要求
 
-*   **Operating System:** Windows.
-*   **Python:** Required if you intend to run the application from source code or build the executable yourself. If using a pre-built executable, Python is not needed. (Python 3.8+ recommended).
+*   **操作系统:** Windows。
+*   **Python:** 如果您打算从源代码运行应用程序或自行构建可执行文件，则需要 Python。(建议使用 Python 3.8+)。如果使用预构建的可执行文件，则不需要 Python。
 
-## 3. Setup & Configuration
+## 3. 设置与配置
 
-The application uses a `config.json` file (located in the same directory as the executable or `src/main.py` if running from source) to store your shared folder path and PIN hash. However, you typically **do not need to edit this file directly**. All configuration is done through the application's user interface.
+应用程序使用一个 `config.json` 文件（位于可执行文件或源代码 `src/main.py` 相同的目录中）来存储您的共享文件夹路径和 PIN 码哈希值。但是，您通常**不需要直接编辑此文件**。所有配置都通过应用程序的用户界面完成。
 
-*   **Setting the Shared Folder:**
-    1.  Start the LAN File Sharer application.
-    2.  In the top "Settings" area, you'll see "Shared Folder: Not set" (or the current path).
-    3.  Click the "Select Shared Folder" button.
-    4.  A dialog will appear. Browse to and select the folder you wish to share.
-    5.  The application will update the path and save your selection.
+*   **设置共享文件夹:**
+    1.  启动 LAN 文件共享器应用程序。
+    2.  在顶部的“设置”区域，您会看到“共享文件夹: 未设置”（或当前路径）。
+    3.  点击“选择共享文件夹”按钮。
+    4.  将出现一个对话框。浏览并选择您希望共享的文件夹。
+    5.  应用程序将更新路径并保存您的选择。
 
-*   **Setting the 4-digit PIN:**
-    1.  Start the application.
-    2.  In the "Settings" area, you'll see "PIN: Not set" (or "PIN: ****" if already set).
-    3.  Click the "Set/Change PIN" button.
-    4.  An input dialog will prompt you to "Enter a 4-digit PIN:".
-    5.  Enter your desired 4-digit numeric PIN and click "OK".
-    6.  If valid, the PIN will be set (or updated), and the application will save it. An invalid PIN (e.g., not 4 digits) will show an error.
+*   **设置4位数 PIN 码:**
+    1.  启动应用程序。
+    2.  在“设置”区域，您会看到“PIN: 未设置”（如果已设置，则为“PIN: ****”）。
+    3.  点击“设置/更改 PIN”按钮。
+    4.  一个输入对话框将提示您“请输入4位数 PIN 码:”。
+    5.  输入您想要的4位数数字 PIN 码，然后点击“确定”。
+    6.  如果有效，PIN 码将被设置（或更新），应用程序将保存它。无效的 PIN 码（例如，不是4位数）将显示错误。
 
-**Important:** Both the Shared Folder and PIN must be set for the application's discovery and sharing features to become active.
+**重要提示:** 必须同时设置共享文件夹和 PIN 码，应用程序的发现和共享功能才能激活。
 
-## 4. How to Use
+## 4. 如何使用
 
-*   **Starting the Application:**
-    *   If using the executable (`LANFileSharer.exe`), double-click it.
-    *   If running from source, navigate to the `lan_file_sharer` directory in your terminal and run: `python src/main.py`.
+*   **启动应用程序:**
+    *   如果使用可执行文件 (`LANFileSharer.exe`)，请双击它。
+    *   如果从源代码运行，请在终端中导航到 `lan_file_sharer` 项目根目录，然后运行: `python -m src.main`。(**注意:** 此处更新了运行命令以避免导入错误)
 
-*   **Main UI Layout:**
-    *   **Settings Area (Top):** Displays the current Shared Folder path and PIN status. Contains buttons to "Select Shared Folder" and "Set/Change PIN".
-    *   **Peers List (Left Pane):** Lists discovered peers on the network who are using the same PIN. Peers are typically identified by a unique ID prefix and their IP address/port.
-    *   **Remote Files List (Middle Pane):** Shows files and folders from the shared directory of a peer selected from the Peers List.
-    *   **Download Button (Right Pane):** A "Download Selected" button used to download files from the Remote Files list.
-    *   **Status Bar (Bottom):** Displays current application status, ongoing actions (like downloading), or error messages.
+*   **主用户界面布局:**
+    *   **设置区域 (顶部):** 显示当前的共享文件夹路径和 PIN 码状态。包含“选择共享文件夹”和“设置/更改 PIN”按钮。
+    *   **对等方列表 (左侧窗格):** 列出网络上使用相同 PIN 码的已发现对等方。对等方通常由唯一 ID 前缀及其 IP 地址/端口标识。
+    *   **远程文件列表 (中间窗格):** 显示从对等方列表中选择的对等方共享目录中的文件和文件夹。
+    *   **下载按钮 (右侧窗格):** 一个“下载选定项”按钮，用于从远程文件列表中下载文件。
+    *   **状态栏 (底部):** 显示当前应用程序状态、正在进行的操作（如下载）或错误消息。
 
-*   **Discovering Peers:**
-    *   Once your Shared Folder and PIN are set, the application automatically starts broadcasting its presence and listening for other peers.
-    *   Peers running the application with the **exact same 4-digit PIN** on the same LAN will appear in the "Discovered Peers" list.
+*   **发现对等方:**
+    *   一旦设置了共享文件夹和 PIN 码，应用程序就会自动开始广播其存在并侦听其他对等方。
+    *   在同一局域网上使用**完全相同的4位数 PIN 码**运行该应用程序的对等方将出现在“已发现的对等方”列表中。
 
-*   **Browsing Files:**
-    1.  Select a peer from the "Discovered Peers" list by clicking on their entry.
-    2.  The "Remote Files" list will populate with the contents of that peer's shared folder (initially showing the root directory).
-    3.  Directory entries are prefixed with `[D]`.
-    4.  To navigate into a directory, double-click its entry (e.g., `[D] MyFolder`).
-    5.  To navigate to the parent directory, double-click the `.. (Parent Directory)` entry or click the "Up One Level" button.
+*   **浏览文件:**
+    1.  通过单击其条目从“已发现的对等方”列表中选择一个对等方。
+    2.  “远程文件”列表将填充该对等方共享文件夹的内容（最初显示根目录）。
+    3.  目录条目前缀为 `[D]`。
+    4.  要进入目录，请双击其条目（例如 `[D] 我的文件夹`）。
+    5.  要导航到父目录，请双击 `.. (父目录)` 条目或单击“上一级”按钮。
 
-*   **Downloading Files:**
-    1.  In the "Remote Files" list, select the file you wish to download (do not select a directory).
-    2.  Click the "Download Selected" button (located in the rightmost pane).
-    3.  A "Save As" dialog will appear. Choose the location on your computer where you want to save the file and click "Save".
-    4.  The download progress will be shown in the Status Bar.
-    5.  A message will confirm completion or indicate an error.
+*   **下载文件:**
+    1.  在“远程文件”列表中，选择您希望下载的文件（不要选择目录）。
+    2.  点击“下载选定项”按钮（位于最右侧的窗格中）。
+    3.  将出现一个“另存为”对话框。选择您计算机上要保存文件的位置，然后单击“保存”。
+    4.  下载进度将显示在状态栏中。
+    5.  一条消息将确认完成或指示错误。
 
-## 5. Building from Source (Creating the EXE)
+## 5. 从源代码构建 (创建 EXE)
 
-If you want to create the `LANFileSharer.exe` yourself, you'll need Python and the dependencies listed in `requirements.txt`.
+如果您想自己创建 `LANFileSharer.exe`，您将需要 Python 和 `requirements.txt` 中列出的依赖项。
 
-**Dependencies (`requirements.txt`):**
+**依赖项 (`requirements.txt`):**
 ```txt
 requests
 customtkinter
 pyinstaller
 ```
-(Note: `pyinstaller` is only needed for building, not for running from source if you already have the other dependencies.)
+(注意: 如果您已经拥有其他依赖项，则 `pyinstaller` 仅在构建时需要，从源代码运行时不需要。)
 
-**Build Script (`build.bat`):**
-Create a file named `build.bat` in the root directory of the `lan_file_sharer` project (the same directory as this README) with the following content:
+**构建脚本 (`build.bat`):**
+在 `lan_file_sharer` 项目的根目录（与此 README 文件相同的目录）中创建一个名为 `build.bat` 的文件，其内容如下:
 
 ```bat
 @echo off
@@ -94,37 +94,37 @@ echo Build process finished. Check the 'dist' folder.
 pause
 ```
 
-**Build Instructions:**
-1.  Ensure Python is installed and added to your system's PATH.
-2.  Open a command prompt or terminal.
-3.  Navigate to the `lan_file_sharer` root directory.
-4.  Install PyInstaller if you haven't already: `pip install pyinstaller`
-5.  Run the build script: `build.bat`
-6.  If successful, the `LANFileSharer.exe` will be located in a new `dist` sub-directory.
+**构建说明:**
+1.  确保已安装 Python 并将其添加到系统的 PATH 中。
+2.  打开命令提示符或终端。
+3.  导航到 `lan_file_sharer` 根目录。
+4.  如果尚未安装 PyInstaller，请安装它: `pip install pyinstaller`
+5.  运行构建脚本: `build.bat`
+6.  如果成功，`LANFileSharer.exe` 将位于新的 `dist` 子目录中。
 
-## 6. Logging
+## 6. 日志记录
 
-For troubleshooting purposes, the application maintains a log file.
-*   **Log File Name:** `lan_sharer.log`
-*   **Default Location:** `HOME/.lan_sharer/lan_sharer.log`
-    *   `HOME` refers to your user's home directory (e.g., `C:\Users\YourUsername`).
-    *   The `.lan_sharer` directory is created automatically.
+为方便故障排除，应用程序会维护一个日志文件。
+*   **日志文件名:** `lan_sharer.log`
+*   **默认位置:** `HOME/.lan_sharer/lan_sharer.log`
+    *   `HOME` 指的是您用户的宿主目录 (例如 `C:\Users\YourUsername`)。
+    *   `.lan_sharer` 目录会自动创建。
 
-This log file contains information about application startup, discovery events, file operations, and any errors encountered.
+此日志文件包含有关应用程序启动、发现事件、文件操作以及遇到的任何错误的信息。
 
-## 7. Troubleshooting (Basic)
+## 7. 故障排除 (基本)
 
-*   **Peers Not Appearing:**
-    *   **PIN Mismatch:** Ensure all peers are using the exact same 4-digit PIN.
-    *   **Firewall:** Your system's firewall (e.g., Windows Defender Firewall) might be blocking the application or its network communication (UDP port 60000 for discovery, TCP for file server - default 8080). You may need to create an exception for the application.
-    *   **LAN Connection:** Verify all computers are connected to the same local area network. Check network cables and Wi-Fi connections.
-    *   **Application Not Running/Configured:** Ensure the application is running on other peers and that their Shared Folder and PIN are set.
+*   **对等方未出现:**
+    *   **PIN 不匹配:** 确保所有对等方都使用完全相同的4位数 PIN 码。
+    *   **防火墙:** 您的系统防火墙（例如 Windows Defender 防火墙）可能会阻止应用程序或其网络通信（发现使用 UDP 端口 60000，文件服务器使用 TCP - 默认为 8080）。您可能需要为该应用程序创建例外。
+    *   **局域网连接:** 验证所有计算机都连接到同一局域网。检查网线和 Wi-Fi 连接。
+    *   **应用程序未运行/未配置:** 确保应用程序正在其他对等方上运行，并且已设置其共享文件夹和 PIN 码。
 
-*   **Download Issues:**
-    *   **Remote Peer Status:** The peer you are trying to download from might have closed the application or changed their PIN/shared folder. Try re-selecting the peer.
-    *   **Local Disk Space:** Ensure you have enough free disk space in the chosen save location.
-    *   **Network Interruption:** A poor network connection can cause downloads to fail.
-    *   **File Server Error on Peer:** The remote peer's application might have encountered an issue serving the file. Check their logs if possible.
+*   **下载问题:**
+    *   **远程对等方状态:** 您尝试下载的对等方可能已关闭应用程序或更改了其 PIN/共享文件夹。尝试重新选择对等方。
+    *   **本地磁盘空间:** 确保您在选择的保存位置有足够的可用磁盘空间。
+    *   **网络中断:** 不良的网络连接可能导致下载失败。
+    *   **对等方上的文件服务器错误:** 远程对等方的应用程序在提供文件时可能遇到了问题。如果可能，请检查其日志。
 
 ---
-This README provides a guide to setting up, using, and building the LAN File Sharer application.
+此 README 文件提供了设置、使用和构建 LAN 文件共享器应用程序的指南。
