@@ -66,7 +66,7 @@ class AuthenticatedHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         if not str(abs_translated_path).startswith(str(self.shared_directory_path)):
             # This case should ideally not be reached if SimpleHTTPRequestHandler's
             # own directory serving logic is sound, but it's a safeguard.
-        logger.warning(f"Path traversal attempt or invalid path: '{path}' translated to '{translated_path}' from client {self.client_address[0]}. Denying access.")
+            logger.warning(f"Path traversal attempt or invalid path: '{path}' translated to '{translated_path}' from client {self.client_address[0]}. Denying access.")
             return None # Indicate an invalid path
 
         return translated_path
